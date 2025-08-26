@@ -56,6 +56,7 @@ CBaseBGWindow *CreateBGWindow(HWND hwndParent, bool fLogoff)
 	{
 		switch (g_dwStyle)
 		{
+			case LOS_WIN98:
 			case LOS_WIN2K:
 				return new CDitheredWindow;
 			case LOS_WINXP:
@@ -210,6 +211,7 @@ CLASSICSHUTDOWN_API DisplayLogoffDialog(HWND hwndParent, LOGOFFSTYLE style)
 	pDialog = nullptr;
 	switch (style)
 	{
+		case LOS_WIN98:
 		case LOS_WIN2K:
 		case LOS_WINXP_GINA:
 			pDialog = new CLogoffDialog;
