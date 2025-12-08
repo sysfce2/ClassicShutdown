@@ -250,15 +250,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <_DefToLib Include="$(ProjectDir)defs\*.def" />
-  </ItemGroup>
-  <Target Name="_GenerateDefLib" BeforeTargets="Link" Inputs="@(_DefToLib)" Outputs="@(_DefToLib->'$(IntDir)%(Filename).lib')">
-    <Exec Command="powershell.exe -File &quot;$(SolutionDir)scripts\DefToLib.ps1&quot; -Def &quot;%(_DefToLib.Identity)&quot; -Machine $(PlatformShortName) -OutDir &quot;$(IntDir)&quot;" />
-  </Target>
-  <PropertyGroup>
-    <_GeneratedLibs>@(_DefToLib->'%(Filename).lib')</_GeneratedLibs>
-  </PropertyGroup>
+  <Import Project="DefToLib\DefToLib.targets" Condition="Exists('DefToLib\DefToLib.targets')" />
   <ItemDefinitionGroup>
     <Link>
       <AdditionalLibraryDirectories>$(IntDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
